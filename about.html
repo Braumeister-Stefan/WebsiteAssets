@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Consultio</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/about.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">CONSULTIO</a>
+            <div class="nav-right">
+                <!-- <button class="theme-toggle" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                    <i class="fas fa-sun"></i>
+                </button> -->
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html" class="active">About</a></li>
+                    <li><a href="project-particle-simulator.html">Project</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="about-page">
+        <section class="about-header">
+            <h1>About</h1>
+            <p class="subtitle">Quantitative expertise meets practical business solutions</p>
+        </section>
+
+        <!-- Download Resume -->
+        <div class="resume-download">
+            <a href="assets/resume.pdf" target="_blank" class="btn btn-primary" download>
+                <i class="fas fa-download"></i> Download CV (PDF)
+            </a>
+        </div>
+
+        <!-- Professional Summary -->
+        <section class="summary-section">
+            <h2>Professional Summary</h2>
+            <p class="summary-text">
+                Quantitative Risk Manager with extensive experience in developing and validating risk 
+                and pricing models for mid & front-office clients across UK and global markets. 
+                Specialized in FRTB, market risk models, and quantitative analysis.
+            </p>
+        </section>
+
+        <!-- Experience -->
+        <section class="experience-section">
+            <h2>Experience</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-period">2022 - Present</div>
+                    <div class="timeline-content card">
+                        <h3>Manager | Senior Consultant</h3>
+                        <p class="company">Deloitte UK - Traded and Quantitative Risk</p>
+                        <ul class="achievements">
+                            <li>Coordinated globally dispersed team on FRTB IMA application delivery</li>
+                            <li>Validated market risk models for B2.5 and B3 compliance</li>
+                            <li>Developed automated tracking system for model findings</li>
+                            <li>Created tactical SA FRTB tool in Python</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-period">2021 - 2022</div>
+                    <div class="timeline-content card">
+                        <h3>Quantitative Analyst</h3>
+                        <p class="company">PwC Belgium - Risk and Assurance</p>
+                        <ul class="achievements">
+                            <li>Validated credit risk models (PD, LGD)</li>
+                            <li>Developed valuation tools for interest rate derivatives</li>
+                            <li>Implemented pricing models including Black76 and SABR</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education -->
+        <section class="education-section">
+            <h2>Education</h2>
+            <div class="education-grid">
+                <div class="education-card card">
+                    <h3>Certificate of Quantitative Finance</h3>
+                    <p class="institution">Fitch Learning</p>
+                    <p class="period">2024 - Present</p>
+                </div>
+                
+                <div class="education-card card">
+                    <h3>Financial Risk Manager</h3>
+                    <p class="institution">GARP</p>
+                    <p class="period">2024</p>
+                </div>
+                
+                <div class="education-card card">
+                    <h3>MSc in Finance</h3>
+                    <p class="institution">Antwerp Management School</p>
+                    <p class="period">2021</p>
+                    <p class="thesis">Thesis: Higher moments in VaR and ES estimation</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills -->
+        <section class="skills-section">
+            <h2>Technical Skills</h2>
+            <div class="skills-container">
+                <div class="skills-category card">
+                    <h3>Languages</h3>
+                    <div class="skills-grid">
+                        <span class="skill-item">Python</span>
+                        <span class="skill-item">SQL</span>
+                        <span class="skill-item">C++</span>
+                        <span class="skill-item">VBA</span>
+                        <span class="skill-item">R</span>
+                    </div>
+                </div>
+                
+                <div class="skills-category card">
+                    <h3>Tools</h3>
+                    <div class="skills-grid">
+                        <span class="skill-item">Bloomberg</span>
+                        <span class="skill-item">Refinitiv</span>
+                        <span class="skill-item">Git</span>
+                        <span class="skill-item">PowerBI</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 CONSULTIO. All rights reserved.</p>
+    </footer>
+
+    <script src="js/modules/utils.js"></script>
+    <script src="js/modules/themeManager.js"></script>
+    <script src="js/modules/mouseTracking.js"></script>
+    <script src="js/pages/about.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

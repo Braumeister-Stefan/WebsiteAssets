@@ -1,0 +1,256 @@
+/* Add to existing project.css */
+
+/* GitHub Link */
+.github-link-container {
+    margin: 1.5rem 0;
+}
+
+.github-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+}
+
+.github-link:hover {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+}
+
+.github-link .arrow {
+    transition: transform 0.2s ease;
+}
+
+.github-link:hover .arrow {
+    transform: translateX(4px);
+}
+
+/* Feature Tags */
+.feature-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+}
+
+.feature-tag {
+    padding: 0.25rem 0.75rem;
+    background: var(--skill-bg);
+    border: 1px solid var(--border-color);
+    font-size: 0.8rem;
+    font-family: var(--font-mono);
+}
+
+/* Media Grid - Flexible Layout */
+.media-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin: 3rem 0;
+}
+
+.media-item {
+    grid-column: span 1;
+}
+
+.media-item.large {
+    grid-column: span 3;
+}
+
+.media-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.media-container.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--card-background);
+}
+
+.placeholder-text {
+    color: var(--light-text);
+    font-size: 0.9rem;
+}
+
+.media-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gif-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--background);
+    display: none;
+}
+
+.gif-overlay.active {
+    display: block;
+}
+
+.demo-gif {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.media-toggle {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 10;
+}
+
+.media-caption {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--light-text);
+    text-align: center;
+}
+
+/* Project Stats */
+.project-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 3rem 0;
+    padding: 2rem;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--accent-color);
+    font-family: var(--font-mono);
+}
+
+.stat-label {
+    font-size: 0.85rem;
+    color: var(--light-text);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Technical Details */
+.technical-details details {
+    margin-top: 1rem;
+}
+
+.technical-details summary {
+    cursor: pointer;
+    color: var(--accent-color);
+    font-weight: 500;
+    padding: 0.5rem 0;
+}
+
+.technical-details summary:hover {
+    text-decoration: underline;
+}
+
+.details-content {
+    margin-top: 1.5rem;
+    padding: 1.5rem;
+    background: var(--card-background);
+}
+
+.details-content h3 {
+    font-size: 1rem;
+    margin: 1rem 0 0.5rem;
+    color: var(--primary-color);
+}
+
+.details-content ul {
+    list-style: none;
+}
+
+.details-content li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.details-content li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+/* Future Work */
+.future-work {
+    margin: 3rem 0;
+}
+
+.future-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.future-item h3 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.future-item ul {
+    list-style: none;
+}
+
+.future-item li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+    font-size: 0.95rem;
+}
+
+.future-item li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .media-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .media-item.large {
+        grid-column: span 1;
+    }
+    
+    .project-stats {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .future-grid {
+        grid-template-columns: 1fr;
+    }
+}

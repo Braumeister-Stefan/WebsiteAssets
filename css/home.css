@@ -1,0 +1,210 @@
+/* ===== HOME PAGE - CORPORATE LANDING ===== */
+.home-page {
+    min-height: calc(100vh - 200px);
+}
+
+/* Hero Section */
+.hero {
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.company-name {
+    font-size: 5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.8s ease forwards;
+}
+
+.tagline {
+    font-size: 1.25rem;
+    color: var(--light-text);
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    line-height: 1.6;
+    font-weight: 400;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.8s ease 0.2s forwards;
+}
+
+/* Abstract Data Visualization */
+.hero-visual {
+    width: 100%;
+    max-width: 800px;
+    margin: 3rem auto 0;
+    position: relative;
+    opacity: 0;
+    animation: fadeIn 1s ease 0.4s forwards;
+}
+
+.data-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border-color);
+    border: 1px solid var(--border-color);
+}
+
+.grid-cell {
+    aspect-ratio: 1;
+    background: var(--background);
+    transition: background 0.2s ease;
+}
+
+.grid-cell.filled {
+    background: var(--accent-color);
+    opacity: 0.1;
+}
+
+.grid-cell.filled.accent-1 { opacity: 0.2; }
+.grid-cell.filled.accent-2 { opacity: 0.3; }
+.grid-cell.filled.accent-3 { opacity: 0.4; }
+
+/* Data lines */
+.data-lines {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 150px;
+    gap: 2px;
+}
+
+.line-bar {
+    flex: 1;
+    background: var(--accent-color);
+    height: 60px;
+    opacity: 0.2;
+    transition: height 0.3s ease;
+}
+
+.line-bar:nth-child(1) { height: 80px; }
+.line-bar:nth-child(2) { height: 120px; }
+.line-bar:nth-child(3) { height: 60px; }
+.line-bar:nth-child(4) { height: 100px; }
+.line-bar:nth-child(5) { height: 140px; }
+.line-bar:nth-child(6) { height: 90px; }
+.line-bar:nth-child(7) { height: 70px; }
+
+/* Metrics Strip */
+.metrics-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin: 4rem 0;
+    padding: 2rem 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.metric-item {
+    text-align: center;
+}
+
+.metric-value {
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--accent-color);
+    font-family: var(--font-mono);
+}
+
+.metric-label {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--light-text);
+    margin-top: 0.5rem;
+}
+
+/* Services Preview */
+.services-preview {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 4rem 0;
+}
+
+.service-item {
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    transition: all 0.2s ease;
+}
+
+.service-item:hover {
+    border-color: var(--accent-color);
+}
+
+.service-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+}
+
+.service-title {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.service-description {
+    font-size: 0.9rem;
+    color: var(--light-text);
+    line-height: 1.6;
+}
+
+/* Animations */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .company-name {
+        font-size: 3rem;
+    }
+    
+    .tagline {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+    
+    .metrics-strip {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+    
+    .services-preview {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .data-lines {
+        height: 100px;
+    }
+}
