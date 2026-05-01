@@ -64,7 +64,6 @@ const MouseTracker = (function() {
         Object.assign(config, options);
         
         createCanvas();
-        createCursorElements();
         
         // Add event listeners
         document.addEventListener('mousemove', handleMouseMove);
@@ -539,56 +538,15 @@ const MouseTracker = (function() {
     function addCustomStyles() {
         const style = document.createElement('style');
         style.textContent = `
-            /* Hide default cursor */
-            body {
-                cursor: none !important;
-            }
-            
-            /* Show custom cursor on all elements */
-            a, button, .btn, input, textarea, select {
-                cursor: none !important;
-            }
-            
-            /* Custom cursor styles */
-            #cursor-dot, #cursor-ring, #cursor-glow {
-                will-change: transform, width, height, opacity;
-                pointer-events: none;
-            }
-            
-            #cursor-dot {
-                transition: opacity 0.3s ease, transform 0.1s ease, background-color 0.3s ease;
-            }
-            
-            #cursor-ring {
-                transition: opacity 0.3s ease, width 0.2s ease, height 0.2s ease, 
-                            border-color 0.3s ease, transform 0.1s ease;
-            }
-            
-            #cursor-glow {
-                transition: opacity 0.3s ease, width 0.2s ease, height 0.2s ease;
-                filter: blur(10px);
-            }
-            
             /* Particle canvas */
             #mouse-particle-canvas {
                 transition: opacity 0.3s ease;
             }
             
-            /* Mobile optimizations */
-            @media (max-width: 768px) {
-                #cursor-dot, #cursor-ring, #cursor-glow {
-                    opacity: 0.7;
-                }
-            }
-            
             /* Touch device fallback */
             @media (hover: none) and (pointer: coarse) {
-                #cursor-dot, #cursor-ring, #cursor-glow, #mouse-particle-canvas {
+                #mouse-particle-canvas {
                     display: none !important;
-                }
-                
-                body {
-                    cursor: auto !important;
                 }
             }
         `;
