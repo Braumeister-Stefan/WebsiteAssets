@@ -108,7 +108,7 @@ Pattern: `const DashboardPage = (function() { ... })()`. Public API: `{ init }` 
 - Null placeholder: `"—"`.
 - `max_drawdown_pct`: `(-Math.abs(data.max_drawdown_pct)).toFixed(2) + '%'`.
 - Applies `.positive`, `.negative`, `.caution`, `.na` classes matching Jinja2 template logic.
-- `current_exposure` access: `data.current_exposure?.invested_pct` (mirrors Jinja2 `{% set exposure = current_exposure or {} %}` guard).
+- `current_exposure` access: `data.current_exposure?.invested_pct` (mirrors Jinja2 {% raw %}`{% set exposure = current_exposure or {} %}`{% endraw %} guard).
 
 **Dependencies:** `Utils` global only. No new external dependencies.
 
