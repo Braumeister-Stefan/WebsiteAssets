@@ -191,7 +191,7 @@ defaults = {
 
 `current_exposure` may therefore be `None` at the template layer. The template guards against this:
 ```jinja
-{% set exposure = current_exposure or {} %}
+{% raw %}{% set exposure = current_exposure or {} %}{% endraw %}
 ```
 
 All `exposure.get(...)` calls in the template are safe against a `None` value because of this guard.
