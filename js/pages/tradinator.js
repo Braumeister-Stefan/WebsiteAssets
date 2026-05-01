@@ -21,6 +21,9 @@ const TradinatorPage = (function() {
         '#9b59b6', '#e74c3c', '#1abc9c'
     ];
 
+    /** Interval handle, retained so polling can be stopped. */
+    var _intervalId = null;
+
     // ── Public entry point ────────────────────────────────────────────────────
 
     /**
@@ -28,7 +31,18 @@ const TradinatorPage = (function() {
      */
     function init() {
         loadData();
-        setInterval(loadData, REFRESH_MS);
+        _intervalId = setInterval(loadData, REFRESH_MS);
+    }
+
+    /**
+     * Stop polling and release the interval.
+     * Call this before navigating away from the page, if needed.
+     */
+    function destroy() {
+        if (_intervalId !== null) {
+            clearInterval(_intervalId);
+            _intervalId = null;
+        }
     }
 
     // ── Data loading ──────────────────────────────────────────────────────────
@@ -311,6 +325,6 @@ const TradinatorPage = (function() {
 
     // ── Public API ────────────────────────────────────────────────────────────
 
-    return { init: init };
+    return { init: init, destroy: destroy };
 
 })();
