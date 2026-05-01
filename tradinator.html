@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tradinator | Live Trading Dashboard</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/tradinator.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">CONSULTIO</a>
+            <div class="nav-right">
+                <ul class="nav-menu">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="project-particle-simulator.html">Project</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="tradinator.html" class="active">Tradinator</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="tradinator-page">
+
+        <!-- Page header -->
+        <section class="tradinator-header">
+            <h1>Tradinator</h1>
+            <p class="subtitle">Algorithmic trading performance — live</p>
+        </section>
+
+        <!-- 2×2 dashboard grid -->
+        <div id="dashboardRoot" class="dashboard-grid">
+
+            <!-- Q1: Performance Metrics -->
+            <div id="q1-metrics" class="card">
+                <h2>Performance Metrics</h2>
+                <div class="metric-row">
+                    <span class="metric-label">Total Return</span>
+                    <span class="metric-value" data-metric="total_return_pct">—</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Period Return</span>
+                    <span class="metric-value" data-metric="period_return_pct">—</span>
+                </div>
+            </div>
+
+            <!-- Q2: Portfolio Exposure pie chart -->
+            <div id="q2-exposure" class="card">
+                <h2>Portfolio Exposure</h2>
+                <canvas id="exposurePie" aria-label="Portfolio exposure pie chart" role="img"></canvas>
+                <div id="pieLegend" class="pie-legend"></div>
+            </div>
+
+            <!-- Q3: Risk Metrics -->
+            <div id="q3-risk" class="card">
+                <h2>Risk Metrics</h2>
+                <div class="metric-row">
+                    <span class="metric-label">Max Drawdown</span>
+                    <span class="metric-value" data-metric="max_drawdown_pct">—</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Sharpe Ratio</span>
+                    <span class="metric-value" data-metric="sharpe_ratio">—</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Annualised Volatility</span>
+                    <span class="metric-value" data-metric="volatility_annual_pct">—</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Open Positions</span>
+                    <span class="metric-value" data-metric="position_count">—</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">History Length</span>
+                    <span class="metric-value" data-metric="history_length">—</span>
+                </div>
+            </div>
+
+            <!-- Q4: System Status -->
+            <div id="q4-status" class="card">
+                <h2>System Status</h2>
+                <span class="live-badge">● LIVE</span>
+                <div class="metric-row">
+                    <span class="metric-label">Last Updated</span>
+                    <time id="lastUpdated">—</time>
+                </div>
+            </div>
+
+        </div><!-- /#dashboardRoot -->
+
+        <!-- Error banner — hidden until a fetch failure occurs -->
+        <p id="dashboardError" class="dashboard-error" style="display:none"></p>
+
+    </main>
+
+    <footer>
+        <p>© 2024 CONSULTIO. All rights reserved.</p>
+    </footer>
+
+    <script src="js/modules/utils.js"></script>
+    <script src="js/modules/themeManager.js"></script>
+    <script src="js/modules/mouseTracking.js"></script>
+    <script src="js/pages/tradinator.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

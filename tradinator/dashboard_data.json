@@ -1,0 +1,15 @@
+{
+  "timestamp": "",
+  "total_return_pct": null,
+  "period_return_pct": null,
+  "max_drawdown_pct": null,
+  "sharpe_ratio": null,
+  "volatility_annual_pct": null,
+  "current_exposure": {
+    "invested_pct": 0.0,
+    "cash_pct": 0.0,
+    "position_count": 0
+  },
+  "history_length": 0,
+  "pie_chart_data": []
+}

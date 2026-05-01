@@ -1,0 +1,158 @@
+/* ===== TRADINATOR PAGE STYLES ===== */
+
+/* Page header — mirrors existing page header patterns */
+.tradinator-page .tradinator-header {
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+}
+
+.tradinator-page .tradinator-header h1 {
+    font-size: 2.5rem;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+}
+
+.tradinator-page .tradinator-header .subtitle {
+    color: var(--text-light);
+    font-size: 1rem;
+}
+
+/* ===== DASHBOARD GRID ===== */
+
+/* 2×2 grid layout, single column below 768 px */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.5rem;
+    max-width: 1100px;
+    margin: 0 auto 2rem;
+    padding: 0 1rem;
+}
+
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Quadrant card headings */
+.dashboard-grid .card h2 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* ===== METRIC ROWS ===== */
+
+/* Each labelled metric line */
+.metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.metric-row:last-child {
+    border-bottom: none;
+}
+
+.metric-label {
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+/* Monospace weight for numeric readability */
+.metric-value {
+    font-weight: 600;
+    font-family: monospace;
+    font-size: 0.95rem;
+}
+
+/* ===== SEMANTIC COLOUR CLASSES ===== */
+
+.positive { color: #4caf50; }
+.negative { color: #f44336; }
+.caution  { color: #ff9800; }
+.na       { color: var(--text-light); }
+
+/* ===== PIE CHART (Q2) ===== */
+
+/* Constrained canvas */
+#exposurePie {
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    aspect-ratio: 1;
+    margin: 0 auto 1rem;
+}
+
+/* Legend below the pie */
+.pie-legend {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+/* Single legend row */
+.pie-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-color);
+}
+
+/* Coloured square swatch */
+.pie-legend-swatch {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+/* ===== STATUS QUADRANT (Q4) ===== */
+
+/* Last-updated timestamp */
+#lastUpdated {
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+/* Live indicator pill */
+.live-badge {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    background-color: #4caf50;
+    color: #fff;
+    margin-bottom: 0.75rem;
+}
+
+/* Stale state: amber */
+.live-badge.stale {
+    background-color: #ff9800;
+}
+
+/* ===== ERROR BANNER ===== */
+
+/* Red warning strip shown on fetch failure */
+.dashboard-error {
+    max-width: 1100px;
+    margin: 0 auto 1rem;
+    padding: 0.75rem 1rem;
+    background-color: rgba(244, 67, 54, 0.1);
+    border: 1px solid #f44336;
+    border-radius: 6px;
+    color: #f44336;
+    font-size: 0.9rem;
+    text-align: center;
+}

@@ -68,6 +68,8 @@
             initContactPage();
         } else if (path.includes('project')) {
             initProjectPage();
+        } else if (path.includes('tradinator')) {
+            initTradinatorPage();
         }
     }
     
@@ -101,6 +103,15 @@
     function initProjectPage() {
         if (typeof ProjectPage !== 'undefined') {
             ProjectPage.init();
+        }
+    }
+
+    /**
+     * Initialize tradinator dashboard page
+     */
+    function initTradinatorPage() {
+        if (typeof TradinatorPage !== 'undefined') {
+            TradinatorPage.init();
         }
     }
     
