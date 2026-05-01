@@ -13,10 +13,6 @@
         <div class="nav-container">
             <a href="index.html" class="logo">CONSULTIO</a>
             <div class="nav-right">
-                <!-- <button class="theme-toggle" id="themeToggle">
-                    <i class="fas fa-moon"></i>
-                    <i class="fas fa-sun"></i>
-                </button> -->
                 <ul class="nav-menu">
                     <li><a href="index.html">Home</a></li>
                     <li><a href="about.html">About</a></li>
@@ -29,155 +25,275 @@
     </nav>
 
     <main class="project-page">
-        <!-- Project Header with GitHub Link -->
+
+        <!-- SECTION 1: HERO -->
         <section class="project-header">
             <h1>Particle Simulator</h1>
-            <p class="project-subtitle">2D Physics Simulation: Gravity & Kinetic Collisions</p>
-            
-            <!-- GitHub Link -->
+            <p class="project-subtitle">
+                N-body physics in 2D — Barnes-Hut gravity, quadtree collision pruning, emergent planetary formation
+            </p>
+            <div class="feature-tags">
+                <span class="feature-tag">C++17</span>
+                <span class="feature-tag">Barnes-Hut</span>
+                <span class="feature-tag">Quadtree</span>
+                <span class="feature-tag">GNUplot</span>
+                <span class="feature-tag">Physics Engine</span>
+            </div>
             <div class="github-link-container">
-                <a href="https://github.com/braumeister-Stefan/ParticleSimulator2" 
-                   target="_blank" 
-                   rel="noopener noreferrer" 
+                <a href="https://github.com/braumeister-Stefan/ParticleSimulator2"
+                   target="_blank"
+                   rel="noopener noreferrer"
                    class="github-link">
                     <i class="fab fa-github"></i>
                     View on GitHub
                     <span class="arrow">→</span>
                 </a>
             </div>
-        </section>
-
-        <!-- Project Description -->
-        <section class="project-description card">
-            <h2>Project Overview</h2>
-            <p class="description-text">
-                This project simulates in 2 dimensions the kinetic and gravitational interactions of n spheroids 
-                in an optimized way. The simulation implements a Barnes-Hut algorithm for gravity and uses quadtree 
-                pruning for collision detection, achieving significant performance improvements.
-            </p>
-            
-            <!-- Key Features as Tags -->
-            <div class="feature-tags">
-                <span class="feature-tag">C++</span>
-                <span class="feature-tag">Barnes-Hut</span>
-                <span class="feature-tag">Quadtree</span>
-                <span class="feature-tag">GNUplot</span>
-                <span class="feature-tag">Physics Engine</span>
+            <div class="hero-gif-container">
+                <img src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/proofofconcept09-03-26v2.gif"
+                     alt="Moon–planet impact simulation"
+                     class="hero-gif">
+                <p class="media-caption">Moon–planet impact — proof of concept, March 2026</p>
             </div>
         </section>
 
-        <!-- Flexible Media Grid -->
-        <section class="media-grid">
-            <!-- Main visualization - Large -->
-            <div class="media-item large">
-                <div class="media-container">
-                    <img src="assets/images/particle-simulator-placeholder.jpg" 
-                         alt="Particle Simulator Visualization" 
-                         class="media-image"
-                         id="mainVisualization">
-                    
-                    <!-- GIF Overlay (toggleable) -->
-                    <div class="gif-overlay" id="gifOverlay">
-                        <img src="assets/images/particle-simulator-demo.gif" 
-                             alt="Simulation Demo" 
-                             class="demo-gif">
+        <!-- SECTION 2: SIMULATION SHOWCASE -->
+        <section class="simulation-showcase">
+            <h2>Simulation Showcase</h2>
+            <div class="showcase-grid">
+
+                <!-- Card 1: Planet Formation -->
+                <div class="showcase-card card">
+                    <h3>Planet Formation</h3>
+                    <div class="showcase-media-row">
+                        <div class="showcase-slot">
+                            <img data-src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/InnerCoreMaker.gif"
+                                 alt="Inner core forming"
+                                 class="lazy-gif showcase-gif">
+                            <p class="media-caption">Inner Core</p>
+                        </div>
+                        <div class="showcase-slot">
+                            <img data-src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/OuterCoreMaker.gif"
+                                 alt="Outer core forming"
+                                 class="lazy-gif showcase-gif">
+                            <p class="media-caption">Outer Core</p>
+                        </div>
                     </div>
-                    
-                    <!-- Media Controls -->
-                    <button class="media-toggle btn" id="toggleGif">
-                        Show Animation
-                    </button>
+                    <button class="btn showcase-activate-btn">Load Animations</button>
                 </div>
-                <p class="media-caption">Figure 1: Particle simulation with gravity and collision effects</p>
-            </div>
 
-            <!-- Additional media slots - easily expandable -->
-            <div class="media-item">
-                <div class="media-container placeholder">
-                    <span class="placeholder-text">Performance Analysis</span>
+                <!-- Card 2: Seeding & Hydrosphere -->
+                <div class="showcase-card card">
+                    <h3>Seeding &amp; Hydrosphere</h3>
+                    <div class="showcase-media-row">
+                        <div class="showcase-slot">
+                            <img data-src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/grassmaker.gif"
+                                 alt="Grass seeding simulation"
+                                 class="lazy-gif showcase-gif">
+                            <p class="media-caption">Grass Layer</p>
+                        </div>
+                        <div class="showcase-slot">
+                            <img data-src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/watermaker.gif"
+                                 alt="Water layer simulation"
+                                 class="lazy-gif showcase-gif">
+                            <p class="media-caption">Water Layer</p>
+                        </div>
+                    </div>
+                    <button class="btn showcase-activate-btn">Load Animations</button>
                 </div>
-                <p class="media-caption">Future: Runtime benchmarks</p>
-            </div>
 
-            <div class="media-item">
-                <div class="media-container placeholder">
-                    <span class="placeholder-text">Energy Conservation</span>
+                <!-- Card 3: Hydrogen Cloud -->
+                <div class="showcase-card card">
+                    <h3>Hydrogen Cloud</h3>
+                    <div class="showcase-media-row">
+                        <div class="showcase-slot showcase-slot--single">
+                            <img data-src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/hcloud.gif"
+                                 alt="Hydrogen cloud collapse"
+                                 class="lazy-gif showcase-gif">
+                            <p class="media-caption">H-Cloud Collapse</p>
+                        </div>
+                    </div>
+                    <button class="btn showcase-activate-btn">Load Animation</button>
                 </div>
-                <p class="media-caption">Future: Validation metrics</p>
-            </div>
 
-            <!-- Note on how to expand -->
-            <div class="media-item note">
-                <div class="media-container">
-                    <i class="fas fa-code-branch"></i>
-                    <p>Additional media slots can be added by copying the .media-item structure</p>
+                <!-- Card 4: Celestial Mechanics -->
+                <div class="showcase-card card">
+                    <h3>Celestial Mechanics</h3>
+                    <div class="showcase-media-row">
+                        <div class="showcase-slot">
+                            <img data-src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/LargeMoonMaker.gif"
+                                 alt="Large moon formation"
+                                 class="lazy-gif showcase-gif">
+                            <p class="media-caption">Moon Formation</p>
+                        </div>
+                        <div class="showcase-slot">
+                            <img data-src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/POC5-03-2026.gif"
+                                 alt="Orbital mechanics proof of concept"
+                                 class="lazy-gif showcase-gif">
+                            <p class="media-caption">Orbital Proof of Concept</p>
+                        </div>
+                    </div>
+                    <button class="btn showcase-activate-btn">Load Animations</button>
                 </div>
+
             </div>
         </section>
 
-        <!-- Quick Stats -->
+        <!-- SECTION 3: STATS BAR -->
         <section class="project-stats">
             <div class="stat-item">
                 <span class="stat-value">5000x</span>
-                <span class="stat-label">Speed Improvement</span>
+                <span class="stat-label">vs. naïve O(n²)</span>
             </div>
             <div class="stat-item">
                 <span class="stat-value">1000+</span>
-                <span class="stat-label">Particles</span>
+                <span class="stat-label">Particles Simulated</span>
             </div>
             <div class="stat-item">
                 <span class="stat-value">&lt;1%</span>
-                <span class="stat-label">Energy Error</span>
+                <span class="stat-label">Energy Conservation</span>
             </div>
         </section>
 
-        <!-- Technical Details (Expandable Section) -->
+        <!-- SECTION 4: TECHNICAL ARCHITECTURE -->
         <section class="technical-details card">
-            <h2>Technical Implementation</h2>
+            <h2>Technical Architecture</h2>
             <details>
                 <summary>View implementation details</summary>
                 <div class="details-content">
                     <h3>Core Components</h3>
                     <ul>
-                        <li><strong>Physics Engine:</strong> Velocity Verlet integration with collision detection</li>
-                        <li><strong>Optimization:</strong> Barnes-Hut algorithm for gravity, quadtree for collision pruning</li>
+                        <li><strong>Integrator:</strong> Velocity Verlet with inelastic collision response</li>
+                        <li><strong>Gravity:</strong> Barnes-Hut tree (θ = 0.9 threshold, O(n log n))</li>
+                        <li><strong>Collision Pruning:</strong> Quadtree spatial partitioning</li>
                         <li><strong>Visualization:</strong> GNUplot with RGB temperature mapping</li>
-                        <li><strong>Data Management:</strong> CSV parameter input, cached frame storage</li>
+                        <li><strong>Data:</strong> CSV parameter input, frame-cache to prevent RAM overflow</li>
                     </ul>
-                    
-                    <h3>Recent Improvements</h3>
-                    <ul>
-                        <li>5000x performance improvement through algorithmic optimization</li>
-                        <li>Energy conservation within 1% for inelastic collisions</li>
-                        <li>Barnes-Hut gravity implementation with quadtree collision pruning</li>
-                        <li>Cache system to prevent RAM overflow for large simulations</li>
-                    </ul>
+
+                    <h3>Barnes-Hut Quadtree</h3>
+                    <div class="click-to-load-container">
+                        <button class="btn click-to-load-btn"
+                                data-src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/Spatial_quadtree_structure_of_the_Barnes-Hut_algorithm_in_the_N-body_problem.gif"
+                                data-alt="Barnes-Hut quadtree spatial structure">
+                            Load Quadtree Visualization (24 MB)
+                        </button>
+                    </div>
+
+                    <h3>Energy Conservation</h3>
+                    <img src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/problematic_energy%20and%20time.png"
+                         alt="Energy and time conservation chart"
+                         class="details-static-img">
                 </div>
             </details>
         </section>
 
-        <!-- Future Research Directions -->
-        <section class="future-work card">
-            <h2>Future Development</h2>
-            <div class="future-grid">
-                <div class="future-item">
-                    <h3>Near-term</h3>
-                    <ul>
-                        <li>Further optimize Barnes-Hut parameters</li>
-                        <li>User-accessible configuration interface</li>
-                        <li>Clean up cache system</li>
-                    </ul>
+        <!-- SECTION 5: USER CONFIGURATION -->
+        <section class="user-config card">
+            <h2>User Configuration</h2>
+            <div class="config-panels">
+                <div class="config-panel">
+                    <img src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/scenario_inputs.png"
+                         alt="Scenario input parameters"
+                         class="config-img">
+                    <p class="media-caption">Scenario Inputs</p>
                 </div>
-                <div class="future-item">
-                    <h3>Long-term</h3>
-                    <ul>
-                        <li>Parallel grid method for collision detection</li>
-                        <li>3D visualization support</li>
-                        <li>Real-time parameter adjustment</li>
-                    </ul>
+                <div class="config-panel">
+                    <img src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/object_inputs.png"
+                         alt="Object input parameters"
+                         class="config-img">
+                    <p class="media-caption">Object Inputs</p>
+                </div>
+                <div class="config-panel">
+                    <img src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/outputs.png"
+                         alt="Simulation outputs"
+                         class="config-img">
+                    <p class="media-caption">Outputs</p>
                 </div>
             </div>
+            <div class="config-logging">
+                <img src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/logging.png"
+                     alt="Simulation logging output"
+                     class="config-img config-img--wide">
+                <p class="media-caption">Logging</p>
+            </div>
         </section>
+
+        <!-- SECTION 6: DEVELOPMENT TIMELINE -->
+        <section class="dev-timeline">
+            <h2>Development Timeline</h2>
+            <ol class="timeline">
+
+                <li class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">September 2024</span>
+                        <h3>Initial Proof of Concept</h3>
+                        <img data-src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/proofofconcept25-09-24.gif"
+                             alt="Proof of concept September 2024"
+                             class="lazy-gif timeline-gif">
+                    </div>
+                </li>
+
+                <li class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">September 2024</span>
+                        <h3>Collision Refinement</h3>
+                        <img data-src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/proofofconcept30-09-24.gif"
+                             alt="Collision refinement September 2024"
+                             class="lazy-gif timeline-gif">
+                    </div>
+                </li>
+
+                <li class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">October 2024</span>
+                        <h3>Barnes-Hut Integration</h3>
+                        <img data-src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/proofofconcept24-10-24.gif"
+                             alt="Barnes-Hut integration October 2024"
+                             class="lazy-gif timeline-gif">
+                    </div>
+                </li>
+
+                <li class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">January 2025</span>
+                        <h3>Quadtree Pruning &amp; Stability</h3>
+                        <img data-src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/proofofconcept25-01-25.gif"
+                             alt="Quadtree pruning January 2025"
+                             class="lazy-gif timeline-gif">
+                    </div>
+                </li>
+
+                <li class="timeline-item">
+                    <div class="timeline-marker"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">February 2026</span>
+                        <h3>Scenario System &amp; Planet Formation</h3>
+                        <img data-src="https://raw.githubusercontent.com/Braumeister-Stefan/ParticleSimulator2/Barnes_Hut/Media/POC_23-02-2026.gif"
+                             alt="Scenario system February 2026"
+                             class="lazy-gif timeline-gif">
+                    </div>
+                </li>
+
+            </ol>
+        </section>
+
+        <!-- SECTION 7: FUTURE WORK -->
+        <section class="future-work card">
+            <h2>Future Development</h2>
+            <ul class="future-list">
+                <li>Further optimize Barnes-Hut θ parameter</li>
+                <li>Parallel grid method for collision detection</li>
+                <li>User-accessible configuration interface</li>
+                <li>Cache system cleanup</li>
+                <li>3D visualization support</li>
+                <li>Real-time parameter adjustment</li>
+            </ul>
+        </section>
+
     </main>
 
     <footer>
