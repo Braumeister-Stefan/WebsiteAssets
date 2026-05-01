@@ -1,4 +1,4 @@
-# Consultio - Quantitative Risk Consulting Portfolio
+# WILMARS.ONE - Quantitative Risk Consulting Portfolio
 
 ## ✨ Features
 
@@ -16,7 +16,7 @@
 
 📁 Project Structure
 
-consultio-portfolio/
+wilmars.one-portfolio/
 │
 ├── index.html                          # Home page
 ├── about.html                           # CV/Resume page
