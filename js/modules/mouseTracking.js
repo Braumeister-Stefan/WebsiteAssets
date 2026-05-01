@@ -115,76 +115,11 @@ const MouseTracker = (function() {
     /**
      * Create cursor elements with glow
      */
-    function createCursorElements() {
-        const accentColor = getAccentColor();
-        const glowIntensity = getGlowIntensity();
-        
-        // Create cursor glow (outer aura)
-        cursorGlow = document.createElement('div');
-        cursorGlow.id = 'cursor-glow';
-        cursorGlow.style.position = 'fixed';
-        cursorGlow.style.width = '80px';
-        cursorGlow.style.height = '80px';
-        cursorGlow.style.background = `radial-gradient(circle, ${accentColor}20 0%, transparent 70%)`;
-        cursorGlow.style.borderRadius = '50%';
-        cursorGlow.style.pointerEvents = 'none';
-        cursorGlow.style.zIndex = '9997';
-        cursorGlow.style.transform = 'translate(-50%, -50%)';
-        cursorGlow.style.transition = 'width 0.2s ease, height 0.2s ease, opacity 0.3s ease';
-        cursorGlow.style.opacity = '0.6';
-        cursorGlow.style.filter = 'blur(8px)';
-        
-        // Create cursor dot
-        cursorDot = document.createElement('div');
-        cursorDot.id = 'cursor-dot';
-        cursorDot.style.position = 'fixed';
-        cursorDot.style.width = `${config.dotSize}px`;
-        cursorDot.style.height = `${config.dotSize}px`;
-        cursorDot.style.backgroundColor = accentColor;
-        cursorDot.style.borderRadius = '50%';
-        cursorDot.style.pointerEvents = 'none';
-        cursorDot.style.zIndex = '10000';
-        cursorDot.style.transform = 'translate(-50%, -50%)';
-        cursorDot.style.transition = 'transform 0.1s ease, background-color 0.3s ease';
-        cursorDot.style.boxShadow = `0 0 20px ${accentColor}`;
-        
-        // Add inner highlight
-        cursorDot.innerHTML = `<div style="
-            position: absolute;
-            top: 20%;
-            left: 20%;
-            width: 30%;
-            height: 30%;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-        "></div>`;
-        
-        // Create cursor ring
-        cursorRing = document.createElement('div');
-        cursorRing.id = 'cursor-ring';
-        cursorRing.style.position = 'fixed';
-        cursorRing.style.width = `${config.ringSize}px`;
-        cursorRing.style.height = `${config.ringSize}px`;
-        cursorRing.style.border = `2px solid ${accentColor}`;
-        cursorRing.style.borderRadius = '50%';
-        cursorRing.style.pointerEvents = 'none';
-        cursorRing.style.zIndex = '9999';
-        cursorRing.style.transform = 'translate(-50%, -50%)';
-        cursorRing.style.transition = 'width 0.2s ease, height 0.2s ease, border-color 0.3s ease';
-        cursorRing.style.boxShadow = `0 0 15px ${accentColor}`;
-        cursorRing.style.opacity = '0.8';
-        
-        document.body.appendChild(cursorGlow);
-        document.body.appendChild(cursorDot);
-        document.body.appendChild(cursorRing);
-    }
-    
     /**
      * Update theme colors
      */
     function updateThemeColors() {
         const accentColor = getAccentColor();
-        const glowIntensity = getGlowIntensity();
         
         if (cursorGlow) {
             cursorGlow.style.background = `radial-gradient(circle, ${accentColor}30 0%, transparent 70%)`;
@@ -279,9 +214,10 @@ const MouseTracker = (function() {
      * Handle mouse enter
      */
     function handleMouseEnter() {
-        [cursorDot, cursorRing, cursorGlow, canvas].forEach(el => {
+        [cursorDot, cursorRing, cursorGlow].forEach(el => {
             if (el) el.style.opacity = '1';
         });
+        if (canvas) canvas.style.opacity = '0.8';
     }
     
     /**
