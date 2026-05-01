@@ -15,9 +15,6 @@ const MouseTracker = (function() {
     let isEnabled = false;
     let animationFrame = null;
     let particles = [];
-    let cursorDot = null;
-    let cursorRing = null;
-    let cursorGlow = null;
     
     // Configuration - Enhanced for dark theme
     const config = {
@@ -48,13 +45,6 @@ const MouseTracker = (function() {
      */
     function getAccentColor() {
         return isDarkMode() ? '#64b5f6' : '#3498db';
-    }
-    
-    /**
-     * Get glow intensity based on theme
-     */
-    function getGlowIntensity() {
-        return isDarkMode() ? '0 0 25px' : '0 0 15px';
     }
     
     /**
@@ -113,27 +103,9 @@ const MouseTracker = (function() {
     }
     
     /**
-     * Create cursor elements with glow
-     */
-    /**
      * Update theme colors
      */
     function updateThemeColors() {
-        const accentColor = getAccentColor();
-        
-        if (cursorGlow) {
-            cursorGlow.style.background = `radial-gradient(circle, ${accentColor}30 0%, transparent 70%)`;
-        }
-        
-        if (cursorDot) {
-            cursorDot.style.backgroundColor = accentColor;
-            cursorDot.style.boxShadow = `${glowIntensity} ${accentColor}`;
-        }
-        
-        if (cursorRing) {
-            cursorRing.style.border = `2px solid ${accentColor}`;
-            cursorRing.style.boxShadow = `0 0 20px ${accentColor}`;
-        }
     }
     
     /**
@@ -164,59 +136,12 @@ const MouseTracker = (function() {
         // Smooth interpolation
         mouseX += (targetX - mouseX) * config.smoothing;
         mouseY += (targetY - mouseY) * config.smoothing;
-        
-        // Update cursor positions
-        if (cursorDot && cursorRing && cursorGlow) {
-            cursorDot.style.left = `${mouseX}px`;
-            cursorDot.style.top = `${mouseY}px`;
-            
-            cursorRing.style.left = `${mouseX}px`;
-            cursorRing.style.top = `${mouseY}px`;
-            
-            cursorGlow.style.left = `${mouseX}px`;
-            cursorGlow.style.top = `${mouseY}px`;
-            
-            // Hover effect - subtle change
-            const hoveredElement = document.elementFromPoint(e.clientX, e.clientY);
-            if (hoveredElement && isInteractiveElement(hoveredElement)) {
-                cursorRing.style.width = `${config.ringSize * 1.2}px`;
-                cursorRing.style.height = `${config.ringSize * 1.2}px`;
-                cursorRing.style.borderColor = '#f39c12';
-                cursorGlow.style.width = '100px';
-                cursorGlow.style.height = '100px';
-            } else {
-                cursorRing.style.width = `${config.ringSize}px`;
-                cursorRing.style.height = `${config.ringSize}px`;
-                cursorRing.style.borderColor = getAccentColor();
-                cursorGlow.style.width = '80px';
-                cursorGlow.style.height = '80px';
-            }
-        }
-    }
-    
-    /**
-     * Check if element is interactive
-     */
-    function isInteractiveElement(element) {
-        const interactiveTags = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT'];
-        const interactiveClasses = ['btn', 'nav-menu', 'social-link', 'card', 'skill-item', 'project-preview'];
-        
-        if (interactiveTags.includes(element.tagName)) return true;
-        
-        for (let cls of interactiveClasses) {
-            if (element.classList.contains(cls)) return true;
-        }
-        
-        return false;
     }
     
     /**
      * Handle mouse enter
      */
     function handleMouseEnter() {
-        [cursorDot, cursorRing, cursorGlow].forEach(el => {
-            if (el) el.style.opacity = '1';
-        });
         if (canvas) canvas.style.opacity = '0.8';
     }
     
@@ -224,25 +149,13 @@ const MouseTracker = (function() {
      * Handle mouse leave
      */
     function handleMouseLeave() {
-        [cursorDot, cursorRing, cursorGlow, canvas].forEach(el => {
-            if (el) el.style.opacity = '0';
-        });
+        if (canvas) canvas.style.opacity = '0';
     }
     
     /**
      * Handle mouse down
      */
     function handleMouseDown() {
-        if (cursorDot) {
-            cursorDot.style.transform = 'translate(-50%, -50%) scale(0.7)';
-        }
-        if (cursorRing) {
-            cursorRing.style.transform = 'translate(-50%, -50%) scale(0.9)';
-        }
-        if (cursorGlow) {
-            cursorGlow.style.transform = 'translate(-50%, -50%) scale(1.2)';
-        }
-        
         createBurstEffect(targetX, targetY, 8);
     }
     
@@ -250,15 +163,6 @@ const MouseTracker = (function() {
      * Handle mouse up
      */
     function handleMouseUp() {
-        if (cursorDot) {
-            cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
-        }
-        if (cursorRing) {
-            cursorRing.style.transform = 'translate(-50%, -50%) scale(1)';
-        }
-        if (cursorGlow) {
-            cursorGlow.style.transform = 'translate(-50%, -50%) scale(1)';
-        }
     }
     
     /**
@@ -430,16 +334,6 @@ const MouseTracker = (function() {
      */
     function updateConfig(newConfig) {
         Object.assign(config, newConfig);
-        
-        if (cursorDot) {
-            cursorDot.style.width = `${config.dotSize}px`;
-            cursorDot.style.height = `${config.dotSize}px`;
-        }
-        
-        if (cursorRing) {
-            cursorRing.style.width = `${config.ringSize}px`;
-            cursorRing.style.height = `${config.ringSize}px`;
-        }
     }
     
     /**
@@ -447,9 +341,7 @@ const MouseTracker = (function() {
      */
     function enable() {
         isEnabled = true;
-        [cursorDot, cursorRing, cursorGlow, canvas].forEach(el => {
-            if (el) el.style.display = 'block';
-        });
+        if (canvas) canvas.style.display = 'block';
         
         if (!animationFrame) {
             animate();
@@ -458,9 +350,7 @@ const MouseTracker = (function() {
     
     function disable() {
         isEnabled = false;
-        [cursorDot, cursorRing, cursorGlow, canvas].forEach(el => {
-            if (el) el.style.display = 'none';
-        });
+        if (canvas) canvas.style.display = 'none';
         
         if (animationFrame) {
             cancelAnimationFrame(animationFrame);
