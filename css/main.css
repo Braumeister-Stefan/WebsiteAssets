@@ -452,7 +452,7 @@ footer {
 
 /* ===== PRINT STYLES ===== */
 @media print {
-    .navbar, footer, .theme-toggle, #cursor-dot, #cursor-ring, #mouse-particle-canvas {
+    .navbar, footer, .theme-toggle, #mouse-particle-canvas {
         display: none !important;
     }
     
