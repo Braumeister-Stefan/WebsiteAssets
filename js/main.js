@@ -64,6 +64,8 @@
         // Determine current page
         if (path.endsWith('index.html') || path === '/' || path.endsWith('/')) {
             initHomePage();
+        } else if (path.includes('about')) {
+            initAboutPage();
         } else if (path.includes('contact')) {
             initContactPage();
         } else if (path.includes('project')) {
@@ -88,6 +90,15 @@
         }
     }
     
+    /**
+     * Initialize about page
+     */
+    function initAboutPage() {
+        if (typeof AboutPage !== 'undefined') {
+            AboutPage.init();
+        }
+    }
+
     /**
      * Initialize contact page
      */
