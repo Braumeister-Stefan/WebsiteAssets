@@ -32,15 +32,15 @@
         if (typeof MouseTracker !== 'undefined') {
             // Configure the mouse tracker
             MouseTracker.init({
-                particleCount: 40,              // More particles for richer effect
+                particleCount: 200,              // More particles for richer effect
                 particleSize: 5,                 // Slightly larger particles
                 ringSize: 50,                     // Larger ring
                 dotSize: 8,                       // Larger dot
-                magneticRadius: 200,               // Wider magnetic influence
-                magneticStrength: 0.7,             // Stronger magnetic effect
+                magneticRadius: 500,               // Wider magnetic influence
+                magneticStrength: 0.2,             // Stronger magnetic effect
                 smoothing: 0.1,                     // Smoother tracking
                 colorPalette: [                     // Custom color palette
-                    'rgba(99, 102, 241, {opacity})', // Indigo
+                    'rgba(250, 250, 250, {opacity})', // Indigo
                     'rgba(79, 70, 229, {opacity})',  // Darker indigo
                     'rgba(129, 140, 248, {opacity})', // Lighter indigo
                     'rgba(165, 180, 252, {opacity})', // Very light indigo
