@@ -19,7 +19,7 @@ const MouseTracker = (function() {
     // Configuration - Enhanced for dark theme
     const config = {
         particleCount: 10,              // Slightly increased for more glow
-        particleSize: 4,                // Slightly larger for visibility
+        particleSize: 2,                // Slightly larger for visibility
         ringSize: 40,                    // Slightly larger ring
         dotSize: 5,                      // Medium dot
         smoothing: 0.03,                  // Very smooth follow
@@ -118,7 +118,7 @@ const MouseTracker = (function() {
                 y: Math.random() * window.innerHeight,
                 vx: (Math.random() - 0.5) * 0.8,
                 vy: (Math.random() - 0.5) * 0.8,
-                size: Math.random() * config.particleSize + 2,
+                size: Math.random() * config.particleSize + 1,
                 color: config.colorPalette[Math.floor(Math.random() * config.colorPalette.length)],
                 life: Math.random() * 100,
                 phase: Math.random() * Math.PI * 2
@@ -178,10 +178,9 @@ const MouseTracker = (function() {
                 y: y,
                 vx: Math.cos(angle) * speed,
                 vy: Math.sin(angle) * speed,
-                size: Math.random() * 5 + 2,
+                size: Math.random() * 2.5 + 1,
                 color: config.colorPalette[Math.floor(Math.random() * config.colorPalette.length)],
                 life: 180,
-                fading: true,
                 phase: Math.random() * Math.PI * 2
             });
         }
@@ -266,7 +265,7 @@ const MouseTracker = (function() {
             y: mouseY + (Math.random() - 0.5) * 250,
             vx: (Math.random() - 0.5) * 0.5,
             vy: (Math.random() - 0.5) * 0.5,
-            size: Math.random() * config.particleSize + 2,
+            size: Math.random() * config.particleSize + 1,
             color: config.colorPalette[Math.floor(Math.random() * config.colorPalette.length)],
             life: 100,
             phase: Math.random() * Math.PI * 2
@@ -280,7 +279,7 @@ const MouseTracker = (function() {
         particles.forEach(p => {
             if (!ctx) return;
             
-            const opacity = p.fading ? p.life / 100 : 0.4;
+            const opacity = p.fading ? p.life / 100 : 0.56;
             const color = p.color.replace('{opacity}', opacity);
             
             // Pulsing effect
