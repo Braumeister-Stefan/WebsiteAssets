@@ -40,7 +40,7 @@
                 magneticStrength: 0.2,             // Stronger magnetic effect
                 smoothing: 0.1,                     // Smoother tracking
                 colorPalette: [                     // Custom color palette
-                    'rgba(250, 250, 250, {opacity})', // Indigo
+                    'rgba(99, 102, 241, {opacity})', // Indigo
                     'rgba(79, 70, 229, {opacity})',  // Darker indigo
                     'rgba(129, 140, 248, {opacity})', // Lighter indigo
                     'rgba(165, 180, 252, {opacity})', // Very light indigo
