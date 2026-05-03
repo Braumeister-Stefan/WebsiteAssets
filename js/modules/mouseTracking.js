@@ -198,11 +198,6 @@ const MouseTracker = (function() {
             
             updateParticles();
             drawParticles();
-            
-            // Draw connections only in dark mode for extra glow
-            if (isDarkMode()) {
-                drawParticleConnections();
-            }
         }
         
         animationFrame = requestAnimationFrame(animate);
@@ -280,7 +275,7 @@ const MouseTracker = (function() {
         particles.forEach(p => {
             if (!ctx) return;
             
-            const opacity = p.fading ? (p.life / 100) * 0.2 : 0.2;
+            const opacity = p.fading ? (p.life / 100) * 0.05 : 0.05;
             const color = p.color.replace('{opacity}', opacity);
             
             // Pulsing effect
@@ -300,33 +295,6 @@ const MouseTracker = (function() {
                 ctx.shadowBlur = 0;
             }
         });
-    }
-    
-    /**
-     * Draw connections between particles (dark mode only)
-     */
-    function drawParticleConnections() {
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const p1 = particles[i];
-                const p2 = particles[j];
-                
-                const distance = Math.hypot(p1.x - p2.x, p1.y - p2.y);
-                
-                if (distance < 120) {
-                    if (!ctx) return;
-                    
-                    const opacity = (1 - distance / 120) * 0.45;
-                    
-                    ctx.beginPath();
-                    ctx.moveTo(p1.x, p1.y);
-                    ctx.lineTo(p2.x, p2.y);
-                    ctx.strokeStyle = `rgba(100, 181, 246, ${opacity})`;
-                    ctx.lineWidth = 1;
-                    ctx.stroke();
-                }
-            }
-        }
     }
     
     /**
