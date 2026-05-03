@@ -18,7 +18,7 @@ const MouseTracker = (function() {
     
     // Configuration - Enhanced for dark theme
     const config = {
-        particleCount: 10,              // Slightly increased for more glow
+        particleCount: 8,               // Slightly increased for more glow
         particleSize: 2,                // Slightly larger for visibility
         ringSize: 40,                    // Slightly larger ring
         dotSize: 5,                      // Medium dot
@@ -156,7 +156,7 @@ const MouseTracker = (function() {
      * Handle mouse down
      */
     function handleMouseDown() {
-        createBurstEffect(targetX, targetY, 8);
+        createBurstEffect(targetX, targetY, 2);
     }
     
     /**
@@ -168,7 +168,7 @@ const MouseTracker = (function() {
     /**
      * Create burst effect on click
      */
-    function createBurstEffect(x, y, count = 8) {
+    function createBurstEffect(x, y, count = 2) {
         for (let i = 0; i < count; i++) {
             const angle = (i / count) * Math.PI * 2;
             const speed = 3;
