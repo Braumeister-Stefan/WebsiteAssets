@@ -316,7 +316,7 @@ const MouseTracker = (function() {
                 if (distance < 120) {
                     if (!ctx) return;
                     
-                    const opacity = (1 - distance / 120) * 0.15;
+                    const opacity = (1 - distance / 120) * 0.45;
                     
                     ctx.beginPath();
                     ctx.moveTo(p1.x, p1.y);
