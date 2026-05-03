@@ -162,7 +162,7 @@ const TradinatorPage = (function() {
 
     /**
      * Draw the portfolio exposure pie chart on canvas #exposurePie.
-     * @param {Array<{label: string, value: number}>} slices - Chart data.
+     * @param {Array<{label: string, pct: number}>} slices - Chart data.
      */
     function renderPie(slices) {
         var canvas = document.getElementById('exposurePie');
@@ -185,11 +185,11 @@ const TradinatorPage = (function() {
             return;
         }
 
-        var total = slices.reduce(function(sum, s) { return sum + s.value; }, 0);
+        var total = slices.reduce(function(sum, s) { return sum + s.pct; }, 0);
         var angle = -Math.PI / 2; // Start at top.
 
         slices.forEach(function(slice, i) {
-            var sweep = (slice.value / total) * 2 * Math.PI;
+            var sweep = (slice.pct / 100) * 2 * Math.PI;
             ctx.beginPath();
             ctx.moveTo(cx, cy);
             ctx.arc(cx, cy, radius, angle, angle + sweep);
@@ -218,7 +218,7 @@ const TradinatorPage = (function() {
 
     /**
      * Rebuild the #pieLegend element with coloured swatches and labels.
-     * @param {Array<{label: string, value: number}>} slices
+     * @param {Array<{label: string, pct: number}>} slices
      */
     function buildLegend(slices) {
         var legend = document.getElementById('pieLegend');
@@ -231,10 +231,8 @@ const TradinatorPage = (function() {
             return;
         }
 
-        var total = slices.reduce(function(sum, s) { return sum + s.value; }, 0);
-
         slices.forEach(function(slice, i) {
-            var pct = total > 0 ? (slice.value / total * 100).toFixed(1) : '0.0';
+            var pct = parseFloat(slice.pct).toFixed(1);
             var item = document.createElement('div');
             item.className = 'pie-legend-item';
 
