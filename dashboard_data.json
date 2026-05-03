@@ -1,15 +1,1 @@
-{
-  "timestamp": "",
-  "total_return_pct": null,
-  "period_return_pct": null,
-  "max_drawdown_pct": null,
-  "sharpe_ratio": null,
-  "volatility_annual_pct": null,
-  "current_exposure": {
-    "invested_pct": 0.0,
-    "cash_pct": 0.0,
-    "position_count": 0
-  },
-  "history_length": 0,
-  "pie_chart_data": []
-}
+{"total_return_pct": 99883.06, "period_return_pct": 0.0, "max_drawdown_pct": 0.01694, "sharpe_ratio": 1.016221494964837, "volatility_annual_pct": 101110.11113044558, "current_exposure": {"invested_pct": 2.7703993056423757, "cash_pct": 97.22960069435761, "position_count": 3}, "history_length": 246, "timestamp": "2026-05-03T20:00:55.679911", "positions": [{"instrument_id": "CS.D.EURUSD.MINI.IP", "direction": "BUY", "size": 213.0, "level": 1.17373, "deal_id": "DIAAAAW86764YAK", "profit_loss": -0.39}, {"instrument_id": "CS.D.EURUSD.MINI.IP", "direction": "BUY", "size": 1.0, "level": 1.17096, "deal_id": "DIAAAAXAQ97WKAH", "profit_loss": 0.0}, {"instrument_id": "CC.D.CL.UMP.IP", "direction": "BUY", "size": 249.0, "level": 10055.4, "deal_id": "DIAAAAXC4D5Z5A3", "profit_loss": 43126.8}], "pie_chart_data": [{"label": "CL", "pct": 100.0, "color": "#4a90d9"}, {"label": "EURUSD", "pct": 0.0, "color": "#34d399"}]}
