@@ -22,7 +22,7 @@ const MouseTracker = (function() {
         particleSize: 4,                // Slightly larger for visibility
         ringSize: 40,                    // Slightly larger ring
         dotSize: 5,                      // Medium dot
-        smoothing: 0.06,                  // Very smooth follow
+        smoothing: 0.03,                  // Very smooth follow
         // Enhanced blue glow palette for dark theme
         colorPalette: [
             'rgba(100, 181, 246, {opacity})',  // Bright blue
@@ -220,8 +220,8 @@ const MouseTracker = (function() {
             const dy = mouseY - p.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
             
-            if (distance < 200) {
-                const force = (1 - distance / 200) * 0.01;
+            if (distance < 100) {
+                const force = (1 - distance / 100) * 0.01;
                 p.vx += dx * force;
                 p.vy += dy * force;
             }
