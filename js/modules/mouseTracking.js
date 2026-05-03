@@ -18,7 +18,7 @@ const MouseTracker = (function() {
     
     // Configuration - Enhanced for dark theme
     const config = {
-        particleCount: 10,              // Slightly increased for more glow
+        particleCount: 5,               // Reduced by 50%
         particleSize: 4,                // Slightly larger for visibility
         ringSize: 40,                    // Slightly larger ring
         dotSize: 5,                      // Medium dot
@@ -280,7 +280,7 @@ const MouseTracker = (function() {
         particles.forEach(p => {
             if (!ctx) return;
             
-            const opacity = p.fading ? p.life / 100 : 1.0;
+            const opacity = p.fading ? (p.life / 100) * 0.2 : 0.2;
             const color = p.color.replace('{opacity}', opacity);
             
             // Pulsing effect
