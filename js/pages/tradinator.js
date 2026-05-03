@@ -7,7 +7,7 @@ const TradinatorPage = (function() {
     'use strict';
 
     /** URL of the JSON data file produced by the Tradinator pipeline. */
-    const DATA_URL = '/tradinator/dashboard_data.json';
+    const DATA_URL = '/dashboard_data.json';
 
     /** Polling interval in milliseconds. */
     const REFRESH_MS = 60000;
