@@ -18,7 +18,7 @@ const MouseTracker = (function() {
     
     // Configuration - Enhanced for dark theme
     const config = {
-        particleCount: 5,               // Reduced by 50%
+        particleCount: 10,              // Slightly increased for more glow
         particleSize: 4,                // Slightly larger for visibility
         ringSize: 40,                    // Slightly larger ring
         dotSize: 5,                      // Medium dot
@@ -88,7 +88,7 @@ const MouseTracker = (function() {
         canvas.style.height = '100%';
         canvas.style.pointerEvents = 'none';
         canvas.style.zIndex = '9998';
-        canvas.style.opacity = '1.0';
+        canvas.style.opacity = '0.8';
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         
@@ -118,7 +118,7 @@ const MouseTracker = (function() {
                 y: Math.random() * window.innerHeight,
                 vx: (Math.random() - 0.5) * 0.8,
                 vy: (Math.random() - 0.5) * 0.8,
-                size: Math.random() * config.particleSize + 3,
+                size: Math.random() * config.particleSize + 2,
                 color: config.colorPalette[Math.floor(Math.random() * config.colorPalette.length)],
                 life: Math.random() * 100,
                 phase: Math.random() * Math.PI * 2
@@ -142,7 +142,7 @@ const MouseTracker = (function() {
      * Handle mouse enter
      */
     function handleMouseEnter() {
-        if (canvas) canvas.style.opacity = '1.0';
+        if (canvas) canvas.style.opacity = '0.8';
     }
     
     /**
@@ -153,10 +153,10 @@ const MouseTracker = (function() {
     }
     
     /**
-     * Handle mouse down — burst on click
+     * Handle mouse down
      */
     function handleMouseDown() {
-        createBurstEffect(targetX, targetY);
+        createBurstEffect(targetX, targetY, 8);
     }
     
     /**
@@ -168,17 +168,17 @@ const MouseTracker = (function() {
     /**
      * Create burst effect on click
      */
-    function createBurstEffect(x, y, count = 5) {
+    function createBurstEffect(x, y, count = 8) {
         for (let i = 0; i < count; i++) {
-            const angle = Math.random() * Math.PI * 2;
-            const speed = Math.random() * 2 + 1;
+            const angle = (i / count) * Math.PI * 2;
+            const speed = 3;
             
             particles.push({
                 x: x,
                 y: y,
                 vx: Math.cos(angle) * speed,
                 vy: Math.sin(angle) * speed,
-                size: Math.random() * 3 + 2,
+                size: Math.random() * 5 + 2,
                 color: config.colorPalette[Math.floor(Math.random() * config.colorPalette.length)],
                 life: 60,
                 fading: true,
@@ -198,6 +198,11 @@ const MouseTracker = (function() {
             
             updateParticles();
             drawParticles();
+            
+            // Draw connections only in dark mode for extra glow
+            if (isDarkMode()) {
+                drawParticleConnections();
+            }
         }
         
         animationFrame = requestAnimationFrame(animate);
@@ -215,8 +220,8 @@ const MouseTracker = (function() {
             const dy = mouseY - p.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
             
-            if (distance < 100) {
-                const force = (1 - distance / 100) * 0.005;
+            if (distance < 200) {
+                const force = (1 - distance / 200) * 0.01;
                 p.vx += dx * force;
                 p.vy += dy * force;
             }
@@ -261,7 +266,7 @@ const MouseTracker = (function() {
             y: mouseY + (Math.random() - 0.5) * 250,
             vx: (Math.random() - 0.5) * 0.5,
             vy: (Math.random() - 0.5) * 0.5,
-            size: Math.random() * config.particleSize + 3,
+            size: Math.random() * config.particleSize + 2,
             color: config.colorPalette[Math.floor(Math.random() * config.colorPalette.length)],
             life: 100,
             phase: Math.random() * Math.PI * 2
@@ -275,7 +280,7 @@ const MouseTracker = (function() {
         particles.forEach(p => {
             if (!ctx) return;
             
-            const opacity = p.fading ? (p.life / 100) * 0.05 : 0.05;
+            const opacity = p.fading ? p.life / 100 : 0.4;
             const color = p.color.replace('{opacity}', opacity);
             
             // Pulsing effect
@@ -290,11 +295,38 @@ const MouseTracker = (function() {
             // Enhanced glow for dark mode
             if (isDarkMode()) {
                 ctx.shadowColor = getAccentColor();
-                ctx.shadowBlur = 75;
+                ctx.shadowBlur = 20;
                 ctx.fill();
                 ctx.shadowBlur = 0;
             }
         });
+    }
+    
+    /**
+     * Draw connections between particles (dark mode only)
+     */
+    function drawParticleConnections() {
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const p1 = particles[i];
+                const p2 = particles[j];
+                
+                const distance = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+                
+                if (distance < 120) {
+                    if (!ctx) return;
+                    
+                    const opacity = (1 - distance / 120) * 0.15;
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.strokeStyle = `rgba(100, 181, 246, ${opacity})`;
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+            }
+        }
     }
     
     /**
