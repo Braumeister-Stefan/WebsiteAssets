@@ -88,7 +88,7 @@ const MouseTracker = (function() {
         canvas.style.height = '100%';
         canvas.style.pointerEvents = 'none';
         canvas.style.zIndex = '9998';
-        canvas.style.opacity = '0.8';
+        canvas.style.opacity = '1.0';
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         
@@ -142,7 +142,7 @@ const MouseTracker = (function() {
      * Handle mouse enter
      */
     function handleMouseEnter() {
-        if (canvas) canvas.style.opacity = '0.8';
+        if (canvas) canvas.style.opacity = '1.0';
     }
     
     /**
@@ -153,9 +153,10 @@ const MouseTracker = (function() {
     }
     
     /**
-     * Handle mouse down — no action on click
+     * Handle mouse down — burst on click
      */
     function handleMouseDown() {
+        createBurstEffect(targetX, targetY);
     }
     
     /**
@@ -167,17 +168,17 @@ const MouseTracker = (function() {
     /**
      * Create burst effect on click
      */
-    function createBurstEffect(x, y, count = 8) {
+    function createBurstEffect(x, y, count = 5) {
         for (let i = 0; i < count; i++) {
-            const angle = (i / count) * Math.PI * 2;
-            const speed = 3;
+            const angle = Math.random() * Math.PI * 2;
+            const speed = Math.random() * 2 + 1;
             
             particles.push({
                 x: x,
                 y: y,
                 vx: Math.cos(angle) * speed,
                 vy: Math.sin(angle) * speed,
-                size: Math.random() * 5 + 3,
+                size: Math.random() * 3 + 2,
                 color: config.colorPalette[Math.floor(Math.random() * config.colorPalette.length)],
                 life: 60,
                 fading: true,
@@ -219,8 +220,8 @@ const MouseTracker = (function() {
             const dy = mouseY - p.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
             
-            if (distance < 200) {
-                const force = (1 - distance / 200) * 0.01;
+            if (distance < 100) {
+                const force = (1 - distance / 100) * 0.005;
                 p.vx += dx * force;
                 p.vy += dy * force;
             }
@@ -279,7 +280,7 @@ const MouseTracker = (function() {
         particles.forEach(p => {
             if (!ctx) return;
             
-            const opacity = p.fading ? p.life / 100 : 0.6;
+            const opacity = p.fading ? p.life / 100 : 1.0;
             const color = p.color.replace('{opacity}', opacity);
             
             // Pulsing effect
