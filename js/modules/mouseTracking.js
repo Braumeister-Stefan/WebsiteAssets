@@ -180,7 +180,7 @@ const MouseTracker = (function() {
                 vy: Math.sin(angle) * speed,
                 size: Math.random() * 5 + 2,
                 color: config.colorPalette[Math.floor(Math.random() * config.colorPalette.length)],
-                life: 60,
+                life: 180,
                 fading: true,
                 phase: Math.random() * Math.PI * 2
             });
@@ -221,7 +221,7 @@ const MouseTracker = (function() {
             const distance = Math.sqrt(dx * dx + dy * dy);
             
             if (distance < 100) {
-                const force = (1 - distance / 100) * 0.01;
+                const force = (1 - distance / 100) * 0.003;
                 p.vx += dx * force;
                 p.vy += dy * force;
             }
