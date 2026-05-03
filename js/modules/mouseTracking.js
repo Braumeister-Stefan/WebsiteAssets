@@ -116,7 +116,9 @@ const MouseTracker = (function() {
 
         Object.assign(config, options);
 
-        // Initialise cursor to viewport centre to prevent boot drift toward (0, 0)
+        // Initialise cursor to viewport centre to prevent boot drift toward (0, 0).
+        // main.js calls init() from DOMContentLoaded so layout is complete and
+        // innerWidth/Height are non-zero by this point.
         mouseX = window.innerWidth / 2;
         mouseY = window.innerHeight / 2;
         targetX = mouseX;
@@ -184,7 +186,8 @@ const MouseTracker = (function() {
     }
 
     /**
-     * Create a single ambient (non-fading) particle at the given position
+     * Create a single ambient (non-fading) particle at the given position.
+     * maxLife is null for ambient particles; life/maxLife is only read when fading === true.
      */
     function makeAmbientParticle(x, y) {
         return {
@@ -195,6 +198,7 @@ const MouseTracker = (function() {
             size: Math.random() * config.particleSize + config.particleSizeMin,
             color: config.colorPalette[Math.floor(Math.random() * config.colorPalette.length)],
             fading: false,
+            maxLife: null,  // null = infinite lifetime; only meaningful when fading === true
             phase: Math.random() * Math.PI * 2
         };
     }
@@ -355,10 +359,11 @@ const MouseTracker = (function() {
             }
         }
 
-        // Remove expired particles — toRemove is in descending order from the reverse loop,
-        // so each splice does not affect the validity of earlier (lower) indices.
-        for (let k = 0; k < toRemove.length; k++) {
-            particles.splice(toRemove[k], 1);
+        // Remove expired particles in a single O(n) pass rather than repeated splices.
+        if (toRemove.length > 0) {
+            particles = particles.filter(function(p) {
+                return !p.fading || p.life > 0;
+            });
         }
 
         // Replenish ambient pool — once per frame, outside the per-particle loop.
@@ -428,8 +433,9 @@ const MouseTracker = (function() {
         for (let i = 0; i < particles.length; i++) {
             const p = particles[i];
 
-            // Fading particles use life/maxLife so opacity starts at 1.0 (not 0.6)
-            const opacity = p.fading ? p.life / p.maxLife : config.staticOpacity;
+            // Fading particles use life/maxLife so opacity starts at 1.0 (not 0.6).
+            // Guard against maxLife=0 to prevent NaN opacity.
+            const opacity = p.fading ? (p.maxLife > 0 ? p.life / p.maxLife : 0) : config.staticOpacity;
             const color   = p.color.replace('{opacity}', opacity);
 
             const pulse = pulseOn
@@ -451,8 +457,8 @@ const MouseTracker = (function() {
     /**
      * Draw connection lines between particles.
      * - ctx guard is at the top (not buried inside the distance check).
-     * - lineWidth is set once outside the loop.
-     * - Connection colour is derived from colorPalette[0] instead of a hardcoded blue.
+     * - lineWidth and strokeStyle are set once outside both loops.
+     * - Per-pair opacity is applied via globalAlpha, avoiding repeated string allocations.
      * - Squared-distance comparison avoids sqrt for non-qualifying pairs.
      * - connectionIncludesBurstParticles gate skips fading particles when false.
      */
@@ -463,9 +469,13 @@ const MouseTracker = (function() {
         const thresholdSq = threshold * threshold;
         const opacityMax  = config.connectionOpacityMax;
         const includeBurst = config.connectionIncludesBurstParticles;
-        const paletteEntry = config.colorPalette[0];
+        // Derive base colour from palette entry by substituting a fully-opaque alpha;
+        // per-pair transparency is then controlled via globalAlpha (one state write per pair
+        // vs. one string allocation + state write per pair with strokeStyle).
+        const baseColor = config.colorPalette[0].replace('{opacity}', '1');
 
-        ctx.lineWidth = config.connectionLineWidth;
+        ctx.lineWidth   = config.connectionLineWidth;
+        ctx.strokeStyle = baseColor;
 
         for (let i = 0; i < particles.length; i++) {
             const p1 = particles[i];
@@ -481,15 +491,16 @@ const MouseTracker = (function() {
 
                 if (distSq < thresholdSq) {
                     const dist    = Math.sqrt(distSq);
-                    const opacity = (1 - dist / threshold) * opacityMax;
+                    ctx.globalAlpha = (1 - dist / threshold) * opacityMax;
                     ctx.beginPath();
                     ctx.moveTo(p1.x, p1.y);
                     ctx.lineTo(p2.x, p2.y);
-                    ctx.strokeStyle = paletteEntry.replace('{opacity}', opacity);
                     ctx.stroke();
                 }
             }
         }
+
+        ctx.globalAlpha = 1;
     }
 
     /**
@@ -501,12 +512,13 @@ const MouseTracker = (function() {
     }
 
     /**
-     * Resume the tracker (e.g. on page visibility restored)
+     * Resume the tracker (e.g. on page visibility restored).
+     * No-op if the tracker was never initialised (canvas is null).
      */
     function enable() {
-        if (isEnabled) return;
+        if (isEnabled || !canvas) return;
         isEnabled = true;
-        if (canvas) canvas.style.display = 'block';
+        canvas.style.display = 'block';
         animate();
     }
 
