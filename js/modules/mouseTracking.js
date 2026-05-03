@@ -295,7 +295,7 @@ const MouseTracker = (function() {
             // Enhanced glow for dark mode
             if (isDarkMode()) {
                 ctx.shadowColor = getAccentColor();
-                ctx.shadowBlur = 25;
+                ctx.shadowBlur = 75;
                 ctx.fill();
                 ctx.shadowBlur = 0;
             }
