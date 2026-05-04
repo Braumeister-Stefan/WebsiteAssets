@@ -2,25 +2,14 @@ name: Daily Netlify Deploy
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/daily-netlify-deploy.yml"
   schedule:
-    # 14:30 UK during BST = 13:30 UTC
-    - cron: "30 13 * * *"
+    - cron: "30 14 * * *"
+      timezone: "Europe/London"
 
 jobs:
-  register:
-    if: github.event_name == 'push'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Register workflow only
-        run: echo "Workflow registered. No Netlify deploy triggered."
-
   deploy:
-    if: github.event_name != 'push'
     runs-on: ubuntu-latest
+
     steps:
       - name: Trigger Netlify build hook
-        run: curl -X POST -d '{}' "${{ secrets.NETLIFY_BUILD_HOOK }}"
+        run: curl -fsS -X POST -d '{}' "${{ secrets.NETLIFY_BUILD_HOOK }}"
