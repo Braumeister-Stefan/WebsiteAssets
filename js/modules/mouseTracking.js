@@ -116,7 +116,7 @@ const MouseTracker = (function() {
             particles.push({
                 x: Math.random() * window.innerWidth,
                 y: Math.random() * window.innerHeight,
-                vx: (Math.random() - 0.5) * 0.267,
+                vx: (Math.random() - 0.5) * 0.267,  // 0.8 / 3 — 200% slower
                 vy: (Math.random() - 0.5) * 0.267,
                 size: Math.random() * config.particleSize + 1,
                 color: config.colorPalette[Math.floor(Math.random() * config.colorPalette.length)],
@@ -172,6 +172,7 @@ const MouseTracker = (function() {
         const baseAngle = Math.random() * Math.PI * 2;
         const speed = 3;
         for (let i = 0; i < count; i++) {
+            // Particles are evenly spaced around baseAngle; with count=2 they are exactly opposite
             const angle = baseAngle + (i / count) * Math.PI * 2;
             
             particles.push({
@@ -265,7 +266,7 @@ const MouseTracker = (function() {
         particles.push({
             x: mouseX + (Math.random() - 0.5) * 250,
             y: mouseY + (Math.random() - 0.5) * 250,
-            vx: (Math.random() - 0.5) * 0.167,
+            vx: (Math.random() - 0.5) * 0.167,  // 0.5 / 3 — 200% slower
             vy: (Math.random() - 0.5) * 0.167,
             size: Math.random() * config.particleSize + 1,
             color: config.colorPalette[Math.floor(Math.random() * config.colorPalette.length)],
