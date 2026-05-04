@@ -18,7 +18,7 @@ const MouseTracker = (function() {
     
     // Configuration - Enhanced for dark theme
     const config = {
-        particleCount: 8,               // Slightly increased for more glow
+        particleCount: 5,               // Reduced by 40%
         particleSize: 2,                // Slightly larger for visibility
         ringSize: 40,                    // Slightly larger ring
         dotSize: 5,                      // Medium dot
@@ -116,8 +116,8 @@ const MouseTracker = (function() {
             particles.push({
                 x: Math.random() * window.innerWidth,
                 y: Math.random() * window.innerHeight,
-                vx: (Math.random() - 0.5) * 0.8,
-                vy: (Math.random() - 0.5) * 0.8,
+                vx: (Math.random() - 0.5) * 0.267,  // 0.8 / 3 — 200% slower
+                vy: (Math.random() - 0.5) * 0.267,
                 size: Math.random() * config.particleSize + 1,
                 color: config.colorPalette[Math.floor(Math.random() * config.colorPalette.length)],
                 life: Math.random() * 100,
@@ -169,9 +169,11 @@ const MouseTracker = (function() {
      * Create burst effect on click
      */
     function createBurstEffect(x, y, count = 2) {
+        const baseAngle = Math.random() * Math.PI * 2;
+        const speed = 3;
         for (let i = 0; i < count; i++) {
-            const angle = (i / count) * Math.PI * 2;
-            const speed = 3;
+            // Particles are evenly spaced around baseAngle; with count=2 they are exactly opposite
+            const angle = baseAngle + (i / count) * Math.PI * 2;
             
             particles.push({
                 x: x,
@@ -180,7 +182,8 @@ const MouseTracker = (function() {
                 vy: Math.sin(angle) * speed,
                 size: Math.random() * 2.5 + 1,
                 color: config.colorPalette[Math.floor(Math.random() * config.colorPalette.length)],
-                life: 180,
+                life: 540,
+                fading: true,
                 phase: Math.random() * Math.PI * 2
             });
         }
@@ -220,7 +223,7 @@ const MouseTracker = (function() {
             const distance = Math.sqrt(dx * dx + dy * dy);
             
             if (distance < 100) {
-                const force = (1 - distance / 100) * 0.003;
+                const force = (1 - distance / 100) * 0.001;
                 p.vx += dx * force;
                 p.vy += dy * force;
             }
@@ -263,8 +266,8 @@ const MouseTracker = (function() {
         particles.push({
             x: mouseX + (Math.random() - 0.5) * 250,
             y: mouseY + (Math.random() - 0.5) * 250,
-            vx: (Math.random() - 0.5) * 0.5,
-            vy: (Math.random() - 0.5) * 0.5,
+            vx: (Math.random() - 0.5) * 0.167,  // 0.5 / 3 — 200% slower
+            vy: (Math.random() - 0.5) * 0.167,
             size: Math.random() * config.particleSize + 1,
             color: config.colorPalette[Math.floor(Math.random() * config.colorPalette.length)],
             life: 100,
