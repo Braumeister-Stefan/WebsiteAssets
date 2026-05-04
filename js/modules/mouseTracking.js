@@ -18,7 +18,7 @@ const MouseTracker = (function() {
     
     // Configuration - Enhanced for dark theme
     const config = {
-        particleCount: 5,               // Reduced by 40%
+        particleCount: 12,              // Hard ambient cap
         particleSize: 2,                // Slightly larger for visibility
         ringSize: 40,                    // Slightly larger ring
         dotSize: 5,                      // Medium dot
@@ -87,8 +87,8 @@ const MouseTracker = (function() {
         canvas.style.width = '100%';
         canvas.style.height = '100%';
         canvas.style.pointerEvents = 'none';
-        canvas.style.zIndex = '9998';
-        canvas.style.opacity = '0.8';
+        canvas.style.zIndex = '1';
+        canvas.style.opacity = '0.4';
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         
@@ -142,7 +142,7 @@ const MouseTracker = (function() {
      * Handle mouse enter
      */
     function handleMouseEnter() {
-        if (canvas) canvas.style.opacity = '0.8';
+        if (canvas) canvas.style.opacity = '0.4';
     }
     
     /**
@@ -249,13 +249,12 @@ const MouseTracker = (function() {
                     particles.splice(i, 1);
                 }
             }
-            
-            // Maintain particle count
-            if (!p.fading && particles.length < config.particleCount) {
-                if (Math.random() < 0.01) {
-                    createNewParticle();
-                }
-            }
+        }
+        
+        // Replenish ambient particles once per frame (hard cap: particleCount)
+        const ambientCount = particles.filter(p => !p.fading).length;
+        if (ambientCount < config.particleCount && Math.random() < 0.01) {
+            createNewParticle();
         }
     }
     
@@ -282,7 +281,7 @@ const MouseTracker = (function() {
         particles.forEach(p => {
             if (!ctx) return;
             
-            const opacity = p.fading ? p.life / 100 : 0.56;
+            const opacity = p.fading ? p.life / 100 : 0.28;
             const color = p.color.replace('{opacity}', opacity);
             
             // Pulsing effect

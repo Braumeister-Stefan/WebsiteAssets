@@ -272,6 +272,8 @@ h2::after {
     border: 1px solid var(--border-color);
     padding: 2rem;
     transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
 }
 
 .card:hover {
