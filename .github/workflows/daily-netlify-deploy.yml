@@ -12,4 +12,30 @@ jobs:
 
     steps:
       - name: Trigger Netlify build hook
-        run: curl -fsS -X POST -d '{}' "${{ secrets.NETLIFY_BUILD_HOOK }}"
+        env:
+          NETLIFY_BUILD_HOOK: ${{ secrets.NETLIFY_BUILD_HOOK }}
+        run: |
+          if [ -z "$NETLIFY_BUILD_HOOK" ]; then
+            echo "::error::NETLIFY_BUILD_HOOK secret is missing or empty."
+            exit 1
+          fi
+
+          echo "Triggering Netlify build hook..."
+
+          http_code=$(curl -sS \
+            -o netlify_response.txt \
+            -w "%{http_code}" \
+            -X POST \
+            -d '{}' \
+            "$NETLIFY_BUILD_HOOK")
+
+          echo "Netlify HTTP status: $http_code"
+          echo "Netlify response body:"
+          cat netlify_response.txt || true
+
+          if [ "$http_code" -lt 200 ] || [ "$http_code" -ge 300 ]; then
+            echo "::error::Netlify build hook failed with HTTP status $http_code. Check whether builds are active, credits are exhausted, or the build hook URL is valid."
+            exit 1
+          fi
+
+          echo "Netlify build hook accepted successfully."
