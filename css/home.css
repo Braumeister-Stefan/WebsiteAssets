@@ -139,6 +139,7 @@
 .service-item {
     padding: 2rem;
     border: 1px solid var(--border-color);
+    background: var(--card-bg);
     transition: all 0.2s ease;
 }
 

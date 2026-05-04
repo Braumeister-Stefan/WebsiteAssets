@@ -26,7 +26,7 @@
     --glow: 0 0 15px var(--accent-glow);
     
     /* Navigation */
-    --nav-bg: rgba(255, 255, 255, 0.98);
+    --nav-bg: rgba(255, 255, 255, 1);
     --nav-border: #e1e4e8;
     
     /* Footer */
@@ -62,7 +62,7 @@
     --glow: 0 0 20px var(--accent-glow);
     
     /* Navigation */
-    --nav-bg: rgba(10, 25, 41, 0.98);  /* Semi-transparent dark */
+    --nav-bg: rgba(10, 25, 41, 1);     /* Fully opaque dark */
     --nav-border: #1e3a5f;
     
     /* Footer */
@@ -94,7 +94,6 @@ body {
     position: sticky;
     top: 0;
     z-index: 1000;
-    backdrop-filter: blur(10px);
     transition: all 0.3s ease;
 }
 
@@ -278,7 +277,6 @@ h2::after {
 .card:hover {
     border-color: var(--accent-color);
     box-shadow: var(--shadow-hover);
-    transform: translateY(-2px);
 }
 
 [data-theme="dark"] .card {
@@ -440,7 +438,6 @@ footer {
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
     .btn:hover,
-    .card:hover,
     .nav-menu a:hover {
         transform: none;
     }
