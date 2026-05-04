@@ -1,0 +1,16 @@
+name: Daily Netlify Deploy
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Runs daily at 14:30 UK time during British Summer Time
+    # GitHub cron uses UTC, so 14:30 BST = 13:30 UTC
+    - cron: "30 13 * * *"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger Netlify build hook
+        run: curl -X POST -d '{}' "${{ secrets.NETLIFY_BUILD_HOOK }}"
