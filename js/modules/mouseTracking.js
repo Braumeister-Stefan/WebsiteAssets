@@ -14,6 +14,9 @@ const MouseTracker = (function() {
     let targetY = 0;
     let isEnabled = false;
     let animationFrame = null;
+    let hasTouchInteracted = false;
+    let lastInputType = 'mouse';
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
     let particles = [];
     
     // Configuration - Enhanced for dark theme
@@ -23,6 +26,10 @@ const MouseTracker = (function() {
         ringSize: 40,                    // Slightly larger ring
         dotSize: 5,                      // Medium dot
         smoothing: 0.03,                  // Very smooth follow
+        burstCount: 2,                   // Particles per burst event
+        opacity: 0.4,                    // Default canvas opacity
+        magneticRadius: 100,             // Mouse attraction radius in px
+        magneticStrength: 0.001,         // Mouse attraction force multiplier
         // Enhanced blue glow palette for dark theme
         colorPalette: [
             'rgba(100, 181, 246, {opacity})',  // Bright blue
@@ -61,12 +68,21 @@ const MouseTracker = (function() {
         document.addEventListener('mouseleave', handleMouseLeave);
         document.addEventListener('mousedown', handleMouseDown);
         document.addEventListener('mouseup', handleMouseUp);
+        document.addEventListener('touchstart', handleTouchStart, { passive: true });
+        document.addEventListener('touchmove',  handleTouchMove,  { passive: true });
+        document.addEventListener('touchend',   handleTouchEnd,   { passive: true });
         
         // Listen for theme changes
         window.addEventListener('themeChanged', updateThemeColors);
         
         // Initialize particles
         initParticles();
+        
+        // Seed virtual cursor at viewport centre
+        mouseX  = window.innerWidth  / 2;
+        mouseY  = window.innerHeight / 2;
+        targetX = mouseX;
+        targetY = mouseY;
         
         // Start animation
         isEnabled = true;
@@ -99,6 +115,17 @@ const MouseTracker = (function() {
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
+            if (!hasTouchInteracted) {
+                mouseX  = window.innerWidth  / 2;
+                mouseY  = window.innerHeight / 2;
+                targetX = mouseX;
+                targetY = mouseY;
+            } else {
+                mouseX  = Math.max(0, Math.min(mouseX,  window.innerWidth));
+                mouseY  = Math.max(0, Math.min(mouseY,  window.innerHeight));
+                targetX = Math.max(0, Math.min(targetX, window.innerWidth));
+                targetY = Math.max(0, Math.min(targetY, window.innerHeight));
+            }
         });
     }
     
@@ -130,6 +157,7 @@ const MouseTracker = (function() {
      * Handle mouse move
      */
     function handleMouseMove(e) {
+        lastInputType = 'mouse';
         targetX = e.clientX;
         targetY = e.clientY;
         
@@ -149,13 +177,16 @@ const MouseTracker = (function() {
      * Handle mouse leave
      */
     function handleMouseLeave() {
-        if (canvas) canvas.style.opacity = '0';
+        if (canvas && window.matchMedia('(pointer: fine)').matches && lastInputType !== 'touch') {
+            canvas.style.opacity = '0';
+        }
     }
     
     /**
      * Handle mouse down
      */
     function handleMouseDown() {
+        if (isTouchDevice) return;
         createBurstEffect(targetX, targetY, 2);
     }
     
@@ -165,6 +196,40 @@ const MouseTracker = (function() {
     function handleMouseUp() {
     }
     
+    /**
+     * Handle touch start — seed cursor position and trigger burst
+     */
+    function handleTouchStart(e) {
+        lastInputType = 'touch';
+        const touch = e.changedTouches[0];
+        targetX = touch.clientX;
+        targetY = touch.clientY;
+        mouseX = touch.clientX;
+        mouseY = touch.clientY;
+        if (canvas) canvas.style.opacity = String(config.opacity);
+        createBurstEffect(touch.clientX, touch.clientY, config.burstCount);
+        hasTouchInteracted = true;
+    }
+
+    /**
+     * Handle touch move — update cursor position with smoothing
+     */
+    function handleTouchMove(e) {
+        lastInputType = 'touch';
+        const touch = e.changedTouches[0];
+        targetX = touch.clientX;
+        targetY = touch.clientY;
+        mouseX += (targetX - mouseX) * config.smoothing;
+        mouseY += (targetY - mouseY) * config.smoothing;
+    }
+
+    /**
+     * Handle touch end — restore canvas opacity
+     */
+    function handleTouchEnd() {
+        if (canvas) canvas.style.opacity = String(config.opacity);
+    }
+
     /**
      * Create burst effect on click
      */
@@ -183,6 +248,7 @@ const MouseTracker = (function() {
                 size: Math.random() * 2.5 + 1,
                 color: config.colorPalette[Math.floor(Math.random() * config.colorPalette.length)],
                 life: 540,
+                maxLife: 540,
                 fading: true,
                 phase: Math.random() * Math.PI * 2
             });
@@ -201,8 +267,8 @@ const MouseTracker = (function() {
             updateParticles();
             drawParticles();
             
-            // Draw connections only in dark mode for extra glow
-            if (isDarkMode()) {
+            // Draw connections only in dark mode (and not during touch input) for extra glow
+            if (isDarkMode() && lastInputType !== 'touch') {
                 drawParticleConnections();
             }
         }
@@ -222,8 +288,8 @@ const MouseTracker = (function() {
             const dy = mouseY - p.y;
             const distance = Math.sqrt(dx * dx + dy * dy);
             
-            if (distance < 100) {
-                const force = (1 - distance / 100) * 0.001;
+            if (distance < config.magneticRadius) {
+                const force = (1 - distance / config.magneticRadius) * config.magneticStrength;
                 p.vx += dx * force;
                 p.vy += dy * force;
             }
@@ -281,7 +347,7 @@ const MouseTracker = (function() {
         particles.forEach(p => {
             if (!ctx) return;
             
-            const opacity = p.fading ? p.life / 100 : 0.28;
+            const opacity = p.fading ? Math.min(p.life / (p.maxLife || 100), 1) : 0.28;
             const color = p.color.replace('{opacity}', opacity);
             
             // Pulsing effect
@@ -293,8 +359,8 @@ const MouseTracker = (function() {
             ctx.fillStyle = color;
             ctx.fill();
             
-            // Enhanced glow for dark mode
-            if (isDarkMode()) {
+            // Enhanced glow for dark mode (disabled during touch input for performance)
+            if (isDarkMode() && lastInputType !== 'touch') {
                 ctx.shadowColor = getAccentColor();
                 ctx.shadowBlur = 20;
                 ctx.fill();
@@ -368,13 +434,6 @@ const MouseTracker = (function() {
             /* Particle canvas */
             #mouse-particle-canvas {
                 transition: opacity 0.3s ease;
-            }
-            
-            /* Touch device fallback */
-            @media (hover: none) and (pointer: coarse) {
-                #mouse-particle-canvas {
-                    display: none !important;
-                }
             }
         `;
         
