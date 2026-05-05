@@ -29,11 +29,12 @@
      */
     function initGlobalModules() {
         // Initialize enhanced mouse tracking
+        const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
         if (typeof MouseTracker !== 'undefined') {
             // Configure the mouse tracker
             MouseTracker.init({
-                particleCount: 40,              // More particles for richer effect
-                particleSize: 5,                 // Slightly larger particles
+                particleCount: isTouchDevice ? 12 : 40,              // More particles for richer effect
+                particleSize: isTouchDevice ? 3 : 5,                 // Slightly larger particles
                 ringSize: 50,                     // Larger ring
                 dotSize: 8,                       // Larger dot
                 magneticRadius: 200,               // Wider magnetic influence

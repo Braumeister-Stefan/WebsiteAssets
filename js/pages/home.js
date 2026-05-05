@@ -52,6 +52,23 @@ const HomePage = (function() {
         previewCard.addEventListener('mouseleave', () => {
             previewCard.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(-5px)';
         });
+
+        // Touch tilt effect
+        previewCard.addEventListener('touchmove', (e) => {
+            const touch = e.changedTouches[0] || e.touches[0];
+            const rect = previewCard.getBoundingClientRect();
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateX = (y - centerY) / 20;
+            const rotateY = (centerX - x) / 20;
+            previewCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+        }, { passive: true });
+
+        previewCard.addEventListener('touchend', () => {
+            previewCard.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(-5px)';
+        }, { passive: true });
     }
     
     /**
