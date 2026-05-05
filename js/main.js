@@ -37,8 +37,8 @@
                 particleSize: isTouchDevice ? 3 : 5,                 // Slightly larger particles
                 ringSize: 50,                     // Larger ring
                 dotSize: 8,                       // Larger dot
-                magneticRadius: 200,               // Wider magnetic influence
-                magneticStrength: 0.7,             // Stronger magnetic effect
+                magneticRadius: 100,               // Wider magnetic influence
+                magneticStrength: 0.001,           // Stronger magnetic effect
                 smoothing: 0.1,                     // Smoother tracking
                 colorPalette: [                     // Custom color palette
                     'rgba(99, 102, 241, {opacity})', // Indigo
