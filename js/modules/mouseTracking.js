@@ -15,8 +15,8 @@ const MouseTracker = (function() {
     let isEnabled = false;
     let animationFrame = null;
     let hasTouchInteracted = false;
-    let lastInputType = 'mouse';
     const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    let lastInputType = isTouchDevice ? 'touch' : 'mouse';
     let particles = [];
     
     // Configuration - Enhanced for dark theme
@@ -267,8 +267,8 @@ const MouseTracker = (function() {
             updateParticles();
             drawParticles();
             
-            // Draw connections only in dark mode (and not during touch input) for extra glow
-            if (isDarkMode() && lastInputType !== 'touch') {
+            // Draw connections only in dark mode for extra glow
+            if (isDarkMode()) {
                 drawParticleConnections();
             }
         }
@@ -347,7 +347,7 @@ const MouseTracker = (function() {
         particles.forEach(p => {
             if (!ctx) return;
             
-            const opacity = p.fading ? Math.min(p.life / (p.maxLife || 100), 1) : 0.28;
+            const opacity = p.fading ? Math.min(p.life / (p.maxLife || 100), 1) : 0.7;
             const color = p.color.replace('{opacity}', opacity);
             
             // Pulsing effect
@@ -359,10 +359,10 @@ const MouseTracker = (function() {
             ctx.fillStyle = color;
             ctx.fill();
             
-            // Enhanced glow for dark mode (disabled during touch input for performance)
-            if (isDarkMode() && lastInputType !== 'touch') {
+            // Enhanced glow for dark mode; reduced blur on touch for performance
+            if (isDarkMode()) {
                 ctx.shadowColor = getAccentColor();
-                ctx.shadowBlur = 20;
+                ctx.shadowBlur = lastInputType === 'touch' ? 10 : 20;
                 ctx.fill();
                 ctx.shadowBlur = 0;
             }
