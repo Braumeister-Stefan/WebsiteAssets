@@ -121,10 +121,10 @@ const MouseTracker = (function() {
                 targetX = mouseX;
                 targetY = mouseY;
             } else {
-                mouseX  = Math.min(mouseX,  window.innerWidth);
-                mouseY  = Math.min(mouseY,  window.innerHeight);
-                targetX = Math.min(targetX, window.innerWidth);
-                targetY = Math.min(targetY, window.innerHeight);
+                mouseX  = Math.max(0, Math.min(mouseX,  window.innerWidth));
+                mouseY  = Math.max(0, Math.min(mouseY,  window.innerHeight));
+                targetX = Math.max(0, Math.min(targetX, window.innerWidth));
+                targetY = Math.max(0, Math.min(targetY, window.innerHeight));
             }
         });
     }
@@ -206,8 +206,8 @@ const MouseTracker = (function() {
         targetY = touch.clientY;
         mouseX = touch.clientX;
         mouseY = touch.clientY;
-        if (canvas) canvas.style.opacity = String(config.opacity ?? 0.4);
-        createBurstEffect(touch.clientX, touch.clientY, config.burstCount ?? 2);
+        if (canvas) canvas.style.opacity = String(config.opacity);
+        createBurstEffect(touch.clientX, touch.clientY, config.burstCount);
         hasTouchInteracted = true;
     }
 
@@ -227,7 +227,7 @@ const MouseTracker = (function() {
      * Handle touch end — restore canvas opacity
      */
     function handleTouchEnd() {
-        if (canvas) canvas.style.opacity = String(config.opacity ?? 0.4);
+        if (canvas) canvas.style.opacity = String(config.opacity);
     }
 
     /**
