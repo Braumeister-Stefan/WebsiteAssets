@@ -186,7 +186,7 @@ const MouseTracker = (function() {
      * Handle mouse down
      */
     function handleMouseDown() {
-        if (isTouchDevice) return;
+        if (lastInputType === 'touch') return;
         createBurstEffect(targetX, targetY, 2);
     }
     
